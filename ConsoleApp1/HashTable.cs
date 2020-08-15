@@ -1,5 +1,4 @@
 ﻿using System;
-
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,6 +29,7 @@ namespace ConsoleApp1
             {
                 concatStr += (int)strValue[i];
             }
+            if (concatStr.Length >= 10) concatStr = concatStr.Substring(0, 9);
             int number = Int32.Parse(concatStr);
             if (number > array.Length - 1)
             {

@@ -6,12 +6,12 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            HashTable<int> table = new HashTable<int>(10);
-            table.Insert(123);
-            table.Insert(321);
-            table.Insert(434);
-            var result = table.Search(434);
-            foreach (int item in result)
+            HashTable<string> table = new HashTable<string>(10);
+            table.Insert("Вова");
+            table.Insert("Даня");
+            table.Insert("Кирилл");
+            var result = table.Search("Кирилл");
+            foreach (string item in result)
             {
                 Console.WriteLine(item);
             }
