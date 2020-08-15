@@ -6,7 +6,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            HashTable table = new HashTable();
+            HashTable<int> table = new HashTable<int>(10);
             table.Insert(123);
             table.Insert(321);
             table.Insert(434);

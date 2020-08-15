@@ -1,48 +1,60 @@
 ﻿using System;
+
 using System.Collections.Generic;
 using System.Linq;
 
 namespace ConsoleApp1
 {
-    class HashTable
+    class HashTable<T>
     {
-        private List<int>[] array = new List<int>[10];
-        public HashTable()
+        private List<T>[] array;
+        public HashTable(int size)
         {
+            array = new List<T>[size];
             for (int i = 0; i < 10; i++)
             {
-                array[i] = new List<int>();
+                array[i] = new List<T>();
             }
         }
-        private int HashCode(int value)
-        {         
-            string str = value.ToString();
-            if (str.Length > 1) return HashCount(value);
-            else return value;
+        private int HashCode(T value)
+        {
+            string strValue = value.ToString();
+            if (strValue.Length <= 0) throw new Exception("Error: invalid value.");
+            return HashCount(strValue);
         }
-        private int HashCount(int value)
+        private int HashCount(string strValue)
         {
             int result = 0;
-            while (value > 0)
+            string concatStr = "";
+            for (int i = 0; i < strValue.Length; i++)
             {
-                int temp = value % 10;
-                result += temp;
-                value /= 10;
+                concatStr += (int)strValue[i];
             }
-            if (result > 9) return HashCount(result);
+            int number = Int32.Parse(concatStr);
+            if (number > array.Length - 1)
+            {
+                while(number != 0)
+                {
+                    int temp = number % 10;
+                    number /= 10;
+                    result += temp;
+                }
+            }
+            result /= 2;
+            if (result > array.Length - 1) return HashCount(result.ToString());
             return result;
         }
-        public void Insert(int value)
+        public void Insert(T value)
         {
             int id = HashCode(value);
             array[id].Add(value);
         }
-        public int[] Search(int value)
+        public T[] Search(T value)
         {
             int id = HashCode(value);
             var result = (from item in array[id]
-                         where item == value
-                         select item).ToArray();
+                          where item.Equals(value)
+                          select item).ToArray();
             return result;
         }
     }
